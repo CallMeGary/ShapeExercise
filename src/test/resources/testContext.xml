@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<context:component-scan base-package="com.gary.interview.shape" />
+
+    <import resource="testValidShapes.xml" />
+
+	<bean id="appConsole" class="com.gary.interview.shape.app.AppConsole">
+		<!-- the directory of the shape files to load -->
+		<property name="shapeFilesDir" value="src/main/resources" />
+		<!-- the number of threads used to do search, should be positive integer -->
+		<property name="searchThreads" value="10" />
+
+		<property name="prompt">
+			<value>=> </value>
+		</property>
+		<property name="welcomeMessages">
+			<list>
+				<value>============================================================================</value>
+				<value>================      Welcome to Shape Game Application!     ===============</value>
+				<value>=== [HINT] Have questions? You can always use 'help' to check the usage. ===</value>
+				<value>============================================================================</value>
+			</list>
+		</property>
+		<property name="commandUsages">
+			<list>
+				<value> help  - check the usage</value>
+				<value></value>
+				<value> exit  - exit the program</value>
+				<value></value>
+				<value> circle [centerX] [centerY] [radius]</value>
+				<value>       - create a circle with the specified center and radius</value>
+				<value></value>
+				<value> donut [centerX] [centerY] [innerRadius] [outerRadius]</value>
+				<value>       - create a donut with the specified center, innerRadius and outerRadius</value>
+				<value></value>
+				<value> triangle [x1] [y1] [x2] [y2] [x3] [y3]</value>
+				<value>       - create a triangle with three specified vertices</value>
+				<value></value>
+				<value> rectangle [x1] [y1] [x2] [y2] [x3] [y3] [x4] [y4]</value>
+				<value>       - create a rectangle with four specified vertices</value>
+				<value></value>
+				<value> square [x1] [y1] [x2] [y2] [x3] [y3] [x4] [y4]</value>
+				<value>       - create a square with four specified vertices</value>
+			</list>
+		</property>
+	</bean>
+</beans>

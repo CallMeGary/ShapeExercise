@@ -1,0 +1,10 @@
+what
+
+
+square 0 0 2.5 0 2.5 2.5 0 2.5
+square 0 0 1 0 1 2 0 2
+square 0 0 1 0 1 2 0 2 10
+square 0 0 1 0 1 2 0
+square 0 0 1 0 1 2 0 a
+square 0 0 1 1 2 2 3 3
+square 0 0 1 0 1 2 0 3

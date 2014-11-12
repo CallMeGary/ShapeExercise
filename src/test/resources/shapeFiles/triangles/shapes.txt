@@ -1,0 +1,6 @@
+what
+triangle 0 0 0 6.6 6.6 0
+triangle 0 0 0 6.6 6.6 0 10
+triangle 0 0 0 6.6 6.6
+triangle 0 0 0 6.6 6.6 aa
+triangle 1.2 1.2 2.57 2.57 3 3

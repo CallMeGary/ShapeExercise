@@ -1,0 +1,9 @@
+what
+circle 0 0 2.5
+circle 0 0
+circle 0 0 20 30
+circle 5 b c
+
+circle 2 3 0
+circle 2 3 -1.4
+invalid command

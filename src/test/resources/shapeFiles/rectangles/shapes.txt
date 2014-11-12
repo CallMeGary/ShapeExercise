@@ -1,0 +1,9 @@
+what
+
+rectangle 0 0 1 0 1 2 0 2
+rectangle 0 0 1 0 1 2 0 2 10
+rectangle 0 0 1 0 1 2 0
+
+rectangle 0 0 1 0 1 2 0 a
+rectangle 0 0 1 1 2 2 3 3
+rectangle 0 0 1 0 1 2 0 3
