@@ -1,4 +1,4 @@
-# Riplife Exercise set up instructions
+# Shape Exercise set up instructions
 
 
 *  You can use 'mvn clean test' to run all the unit tests.
