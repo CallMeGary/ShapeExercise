@@ -11,12 +11,12 @@ public class DonutTests {
     private Donut donut;
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_NullPrameter() throws Exception {
+    public void testConstructor_NullParameter() throws Exception {
         donut = new Donut(null);
     }
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_EmptyPrameter() throws Exception {
+    public void testConstructor_EmptyParameter() throws Exception {
         donut = new Donut(" ");
     }
 

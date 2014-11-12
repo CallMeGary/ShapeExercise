@@ -11,12 +11,12 @@ public class TriangleTests {
     private Triangle triangle;
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_NullPrameter() throws Exception {
+    public void testConstructor_NullParameter() throws Exception {
         triangle = new Triangle(null);
     }
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_EmptyPrameter() throws Exception {
+    public void testConstructor_EmptyParameter() throws Exception {
         triangle = new Triangle(" ");
     }
 

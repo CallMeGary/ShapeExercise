@@ -11,12 +11,12 @@ public class SquareTests {
     private Square square;
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_NullPrameter() throws Exception {
+    public void testConstructor_NullParameter() throws Exception {
         square = new Square(null);
     }
 
     @Test(expected = InvalidShapeException.class)
-    public void testConstructor_EmptyPrameter() throws Exception {
+    public void testConstructor_EmptyParameter() throws Exception {
         square = new Square(" ");
     }
 
