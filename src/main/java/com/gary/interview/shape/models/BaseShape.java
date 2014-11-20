@@ -7,11 +7,11 @@ import com.gary.interview.shape.errors.InvalidShapeException;
 
 public abstract class BaseShape implements Shape, Serializable {
 
-    static final double delta = 0.00000000001;
-
     private static final long serialVersionUID = 1L;
 
     private static final NumberFormat fmt = NumberFormat.getInstance();
+
+    static final double delta = 0.00000000001;
 
     abstract String getShapeName();
 
@@ -21,22 +21,31 @@ public abstract class BaseShape implements Shape, Serializable {
 
     abstract void validateShapeProperties() throws InvalidShapeException;
 
-    final void parse(String rawData) throws InvalidShapeException {
-        if (rawData == null || rawData.trim().isEmpty()) {
-            throw new InvalidShapeException("data cannot be null or empty(trimmed): " + rawData);
+    /**
+     * Parse the shape from the command data.
+     * 
+     * @param commandData
+     *            The command data to parse.
+     * 
+     * @throws InvalidShapeException
+     *             If any error occurred when parsing the shape.
+     */
+    final void parse(String commandData) throws InvalidShapeException {
+        if (commandData == null || commandData.trim().isEmpty()) {
+            throw new InvalidShapeException("data cannot be null or empty(trimmed): " + commandData);
         }
 
-        if (!rawData.startsWith(getShapeName() + " ")) {
-            throw new InvalidShapeException("wrong command for " + getShapeName() + ": " + rawData);
+        if (!commandData.startsWith(getShapeName() + " ")) {
+            throw new InvalidShapeException("wrong command for " + getShapeName() + ": " + commandData);
         }
 
-        String data[] = rawData.split("\\s");
+        String data[] = commandData.split("\\s");
 
         if (data.length < getNumberOfArguments()) {
-            throw new InvalidShapeException("too few arguments: " + rawData);
+            throw new InvalidShapeException("too few arguments: " + commandData);
         }
         if (data.length > getNumberOfArguments()) {
-            throw new InvalidShapeException("too many arguments: " + rawData);
+            throw new InvalidShapeException("too many arguments: " + commandData);
         }
 
         try {
@@ -45,18 +54,52 @@ public abstract class BaseShape implements Shape, Serializable {
             validateShapeProperties();
 
         } catch (NumberFormatException e) {
-            throw new InvalidShapeException("invalid number format: " + rawData);
+            throw new InvalidShapeException("invalid number format: " + commandData);
         }
     }
 
+    /**
+     * Calculate the area of the triangle formed by the specified three vertices.
+     * 
+     * @param p1
+     *            The specified vertice p1.
+     * @param p2
+     *            The specified vertice p2.
+     * @param p3
+     *            The specified vertice p3.
+     * 
+     * @return The calculated area.
+     */
     final double calculateArea(Point p1, Point p2, Point p3) {
         return Math.abs(p1.x * p2.y + p2.x * p3.y + p3.x * p1.y - p1.x * p3.y - p2.x * p1.y - p3.x * p2.y) / 2.0;
     }
 
+    /**
+     * Calculate the distance of the two specified vertices.
+     * 
+     * @param p1
+     *            The specified vertice p1.
+     * @param p2
+     *            The specified vertice p2.
+     * 
+     * @return The calculated distance.
+     */
     final double calculateDistance(Point p1, Point p2) {
         return Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
     }
 
+    /**
+     * Parse the point from two specified string valued coordinates.
+     * 
+     * @param xVal
+     *            The string valued x-coordinate.
+     * @param yVal
+     *            The string valued y-coordinate.
+     * 
+     * @return The parsed point.
+     * @throws NumberFormatException
+     *             If any error occurred when parsing number from string.
+     */
     final Point parsePoint(String xVal, String yVal) {
         return new Point(Double.parseDouble(xVal), Double.parseDouble(yVal));
     }
