@@ -49,19 +49,19 @@ public abstract class BaseShape implements Shape, Serializable {
         }
     }
 
-    double calculateArea(Point p1, Point p2, Point p3) {
+    final double calculateArea(Point p1, Point p2, Point p3) {
         return Math.abs(p1.x * p2.y + p2.x * p3.y + p3.x * p1.y - p1.x * p3.y - p2.x * p1.y - p3.x * p2.y) / 2.0;
     }
 
-    double calculateDistance(Point p1, Point p2) {
+    final double calculateDistance(Point p1, Point p2) {
         return Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
     }
 
-    Point parsePoint(String xVal, String yVal) {
+    final Point parsePoint(String xVal, String yVal) {
         return new Point(Double.parseDouble(xVal), Double.parseDouble(yVal));
     }
 
-    String format(double number) {
+    final String format(double number) {
         return fmt.format(number);
     }
 
