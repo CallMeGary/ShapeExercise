@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidShapeException;
 import com.gary.interview.shape.models.Circle;
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Shape;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,8 +46,7 @@ public class ShapeFactoryTests {
         Assert.assertTrue(shape instanceof Circle);
 
         Circle circle = (Circle) shape;
-        Assert.assertEquals(1.0, circle.getCenterX(), Constants.DELTA);
-        Assert.assertEquals(2.0, circle.getCenterY(), Constants.DELTA);
-        Assert.assertEquals(5.5, circle.getRadius(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(1.0, 2.0), circle.getCenter());
+        Helper.assertDoubleEquals(5.5, circle.getRadius());
     }
 }

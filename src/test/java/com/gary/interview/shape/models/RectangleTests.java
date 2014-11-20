@@ -3,7 +3,7 @@ package com.gary.interview.shape.models;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidShapeException;
 
 public class RectangleTests {
@@ -59,33 +59,29 @@ public class RectangleTests {
     public void testConstructor_Accuracy() throws Exception {
         rectangle = new Rectangle("rectangle 0 0 2 0 2 3 0 3");
 
-        Assert.assertEquals(0.0, rectangle.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(2.0, rectangle.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(2.0, rectangle.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(3.0, rectangle.getVerticeY3(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeX4(), Constants.DELTA);
-        Assert.assertEquals(3.0, rectangle.getVerticeY4(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), rectangle.getV1());
+        Helper.assertPointEquals(new Point(2.0, 0.0), rectangle.getV2());
+        Helper.assertPointEquals(new Point(2.0, 3.0), rectangle.getV3());
+        Helper.assertPointEquals(new Point(0.0, 3.0), rectangle.getV4());
     }
 
     @Test
     public void testGetArea() throws Exception {
         rectangle = new Rectangle("rectangle -1.0 0 2 0 2 4 -1 4");
 
-        Assert.assertEquals(12.0, rectangle.getArea(), Constants.DELTA);
+        Helper.assertDoubleEquals(12.0, rectangle.getArea());
     }
 
     @Test
     public void testIsInShape() throws Exception {
         rectangle = new Rectangle("rectangle -1.0 0 2 0 2 4 -1 4");
 
-        Assert.assertTrue(rectangle.isInShape(0.0, 0.0));
-        Assert.assertTrue(rectangle.isInShape(-1.0, 0.0));
-        Assert.assertTrue(rectangle.isInShape(1.0, 1.0));
+        Assert.assertTrue(rectangle.isInShape(new Point(0.0, 0.0)));
+        Assert.assertTrue(rectangle.isInShape(new Point(-1.0, 0.0)));
+        Assert.assertTrue(rectangle.isInShape(new Point(1.0, 1.0)));
 
-        Assert.assertFalse(rectangle.isInShape(4.0, 4.0));
-        Assert.assertFalse(rectangle.isInShape(-2.5, 0));
+        Assert.assertFalse(rectangle.isInShape(new Point(4.0, 4.0)));
+        Assert.assertFalse(rectangle.isInShape(new Point(-2.5, 0)));
     }
 
 }

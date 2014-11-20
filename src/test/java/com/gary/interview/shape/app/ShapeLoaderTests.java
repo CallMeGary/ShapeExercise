@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidFilePathException;
 import com.gary.interview.shape.models.Circle;
 import com.gary.interview.shape.models.Donut;
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Rectangle;
 import com.gary.interview.shape.models.Shape;
 import com.gary.interview.shape.models.Square;
@@ -63,13 +64,11 @@ public class ShapeLoaderTests {
         // triangle 0 0 0 6.6 6.6 0
         Shape shape = shapeRepository.get(0);
         Assert.assertTrue(shape instanceof Triangle);
+
         Triangle triangle = (Triangle) shape;
-        Assert.assertEquals(0.0, triangle.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(6.6, triangle.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(6.6, triangle.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeY3(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), triangle.getV1());
+        Helper.assertPointEquals(new Point(0.0, 6.6), triangle.getV2());
+        Helper.assertPointEquals(new Point(6.6, 0.0), triangle.getV3());
     }
 
     @Test
@@ -81,10 +80,10 @@ public class ShapeLoaderTests {
         // circle 0 0 2.5
         Shape shape = shapeRepository.get(0);
         Assert.assertTrue(shape instanceof Circle);
+
         Circle circle = (Circle) shape;
-        Assert.assertEquals(0.0, circle.getCenterX(), Constants.DELTA);
-        Assert.assertEquals(0.0, circle.getCenterY(), Constants.DELTA);
-        Assert.assertEquals(2.5, circle.getRadius(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), circle.getCenter());
+        Helper.assertDoubleEquals(2.5, circle.getRadius());
     }
 
     @Test
@@ -96,11 +95,11 @@ public class ShapeLoaderTests {
         // donut 1.5 1.5 30 50
         Shape shape = shapeRepository.get(0);
         Assert.assertTrue(shape instanceof Donut);
+
         Donut donut = (Donut) shape;
-        Assert.assertEquals(1.5, donut.getCenterX(), Constants.DELTA);
-        Assert.assertEquals(1.5, donut.getCenterY(), Constants.DELTA);
-        Assert.assertEquals(30.0, donut.getInnerRadius(), Constants.DELTA);
-        Assert.assertEquals(50.0, donut.getOuterRadius(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(1.5, 1.5), donut.getCenter());
+        Helper.assertDoubleEquals(30.0, donut.getInnerRadius());
+        Helper.assertDoubleEquals(50.0, donut.getOuterRadius());
     }
 
     @Test
@@ -112,15 +111,12 @@ public class ShapeLoaderTests {
         // rectangle 0 0 1 0 1 2 0 2
         Shape shape = shapeRepository.get(0);
         Assert.assertTrue(shape instanceof Rectangle);
+
         Rectangle rectangle = (Rectangle) shape;
-        Assert.assertEquals(0.0, rectangle.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(1.0, rectangle.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(1.0, rectangle.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(2.0, rectangle.getVerticeY3(), Constants.DELTA);
-        Assert.assertEquals(0.0, rectangle.getVerticeX4(), Constants.DELTA);
-        Assert.assertEquals(2.0, rectangle.getVerticeY4(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), rectangle.getV1());
+        Helper.assertPointEquals(new Point(1.0, 0.0), rectangle.getV2());
+        Helper.assertPointEquals(new Point(1.0, 2.0), rectangle.getV3());
+        Helper.assertPointEquals(new Point(0.0, 2.0), rectangle.getV4());
     }
 
     @Test
@@ -132,15 +128,12 @@ public class ShapeLoaderTests {
         // square 0 0 2.5 0 2.5 2.5 0 2.5
         Shape shape = shapeRepository.get(0);
         Assert.assertTrue(shape instanceof Square);
+
         Square square = (Square) shape;
-        Assert.assertEquals(0.0, square.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(2.5, square.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(2.5, square.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(2.5, square.getVerticeY3(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeX4(), Constants.DELTA);
-        Assert.assertEquals(2.5, square.getVerticeY4(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), square.getV1());
+        Helper.assertPointEquals(new Point(2.5, 0.0), square.getV2());
+        Helper.assertPointEquals(new Point(2.5, 2.5), square.getV3());
+        Helper.assertPointEquals(new Point(0.0, 2.5), square.getV4());
     }
 
     @After

@@ -3,7 +3,7 @@ package com.gary.interview.shape.models;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidShapeException;
 
 public class SquareTests {
@@ -64,33 +64,29 @@ public class SquareTests {
     public void testConstructor_Accuracy() throws Exception {
         square = new Square("square 0 0 4 0 4 4 0 4");
 
-        Assert.assertEquals(0.0, square.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(4.0, square.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(4.0, square.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(4.0, square.getVerticeY3(), Constants.DELTA);
-        Assert.assertEquals(0.0, square.getVerticeX4(), Constants.DELTA);
-        Assert.assertEquals(4.0, square.getVerticeY4(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), square.getV1());
+        Helper.assertPointEquals(new Point(4.0, 0.0), square.getV2());
+        Helper.assertPointEquals(new Point(4.0, 4.0), square.getV3());
+        Helper.assertPointEquals(new Point(0.0, 4.0), square.getV4());
     }
 
     @Test
     public void testGetArea() throws Exception {
         square = new Square("square 0 0 4 0 4 4 0 4");
 
-        Assert.assertEquals(16.0, square.getArea(), Constants.DELTA);
+        Helper.assertDoubleEquals(16.0, square.getArea());
     }
 
     @Test
     public void testIsInShape() throws Exception {
         square = new Square("square 0 0 4 0 4 4 0 4");
 
-        Assert.assertTrue(square.isInShape(0.0, 0.0));
-        Assert.assertTrue(square.isInShape(2.0, 3.0));
-        Assert.assertTrue(square.isInShape(4.0, 1.0));
+        Assert.assertTrue(square.isInShape(new Point(0.0, 0.0)));
+        Assert.assertTrue(square.isInShape(new Point(2.0, 3.0)));
+        Assert.assertTrue(square.isInShape(new Point(4.0, 1.0)));
 
-        Assert.assertFalse(square.isInShape(4.1, 4.1));
-        Assert.assertFalse(square.isInShape(-2.5, 0));
+        Assert.assertFalse(square.isInShape(new Point(4.1, 4.1)));
+        Assert.assertFalse(square.isInShape(new Point(-2.5, 0)));
     }
 
 }

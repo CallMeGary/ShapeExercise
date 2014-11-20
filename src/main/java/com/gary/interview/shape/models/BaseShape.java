@@ -1,6 +1,7 @@
 package com.gary.interview.shape.models;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 
 import com.gary.interview.shape.errors.InvalidShapeException;
 
@@ -9,6 +10,8 @@ public abstract class BaseShape implements Shape, Serializable {
     static final double delta = 0.00000000001;
 
     private static final long serialVersionUID = 1L;
+
+    private static final NumberFormat fmt = NumberFormat.getInstance();
 
     abstract String getShapeName();
 
@@ -46,12 +49,20 @@ public abstract class BaseShape implements Shape, Serializable {
         }
     }
 
-    double calculateArea(double x1, double y1, double x2, double y2, double x3, double y3) {
-        return Math.abs(x1 * y2 + x2 * y3 + x3 * y1 - x1 * y3 - x2 * y1 - x3 * y2) / 2.0;
+    double calculateArea(Point p1, Point p2, Point p3) {
+        return Math.abs(p1.x * p2.y + p2.x * p3.y + p3.x * p1.y - p1.x * p3.y - p2.x * p1.y - p3.x * p2.y) / 2.0;
     }
 
-    double calculateDistance(double x1, double y1, double x2, double y2) {
-        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    double calculateDistance(Point p1, Point p2) {
+        return Math.sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+    }
+
+    Point parsePoint(String xVal, String yVal) {
+        return new Point(Double.parseDouble(xVal), Double.parseDouble(yVal));
+    }
+
+    String format(double number) {
+        return fmt.format(number);
     }
 
     private long id;

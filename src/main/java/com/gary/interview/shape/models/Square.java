@@ -23,8 +23,8 @@ public class Square extends Rectangle {
             throw new InvalidShapeException("not a valid " + shapeName);
         }
 
-        double distance14 = calculateDistance(getVerticeX1(), getVerticeY1(), getVerticeX4(), getVerticeY4());
-        double distance13 = calculateDistance(getVerticeX1(), getVerticeY1(), getVerticeX3(), getVerticeY3());
+        double distance14 = calculateDistance(getV1(), getV4());
+        double distance13 = calculateDistance(getV1(), getV3());
 
         if (!(Math.abs(Math.sqrt(2.0) * distance14 - distance13) < delta)) {
             throw new InvalidShapeException("not a valid " + shapeName);

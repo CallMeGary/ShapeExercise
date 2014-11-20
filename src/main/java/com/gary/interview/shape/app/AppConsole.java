@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.gary.interview.shape.errors.InvalidFilePathException;
 import com.gary.interview.shape.errors.InvalidShapeException;
 import com.gary.interview.shape.models.BaseShape;
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Shape;
 import com.gary.interview.shape.repositories.ShapeRepository;
 
@@ -37,8 +38,8 @@ public class AppConsole {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("appContext.xml");
         AppConsole app = (AppConsole) appContext.getBean("appConsole");
 
-        System.out.println("\n\nThe Shape Game Application is starting ....");
-        
+        System.out.printf("\n\nThe Shape Game Application is starting ....\n");
+
         app.loadShapes();
         app.printWelcome();
 
@@ -63,7 +64,7 @@ public class AppConsole {
                     line = br.readLine();
                 }
 
-                System.out.println("\nGoodbye! Remember to have fun...");
+                System.out.printf("\nGoodbye! Remember to have fun...");
                 System.exit(0);
             } finally {
                 br.close();
@@ -75,8 +76,8 @@ public class AppConsole {
     }
 
     private void loadShapes() {
-        System.out.println("...");
-        System.out.println("Started to load shapes from files at location: " + shapeFilesDir);
+        System.out.printf("...\n");
+        System.out.printf("Started to load shapes from files at location: %s\n", shapeFilesDir);
 
         try {
             shapeLoader.loadShapes(shapeFilesDir);
@@ -84,8 +85,8 @@ public class AppConsole {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("Completed loading shapes from files.");
-        System.out.println("...");
+        System.out.printf("Completed loading shapes from files.\n");
+        System.out.printf("...\n");
     }
 
     private void searchShapes(String line) {
@@ -95,13 +96,15 @@ public class AppConsole {
         double y = Double.parseDouble(data[1]);
         double totalArea = 0.0;
 
+        Point point = new Point(x, y);
+
         NumberFormat fmt = NumberFormat.getInstance();
 
         System.out.printf("Searching for shapes that include (%s, %s) ...\n", fmt.format(x), fmt.format(y));
 
-        List<Shape> result = shapeSeacher.search(x, y, searchThreads);
+        List<Shape> result = shapeSeacher.search(point, searchThreads);
         for (Shape shape : result) {
-            if (shape.isInShape(x, y)) {
+            if (shape.isInShape(point)) {
                 double area = shape.getArea();
                 totalArea += area;
                 System.out.printf("\t%s, area: %s\n", shape.toString(), fmt.format(area));
@@ -117,29 +120,11 @@ public class AppConsole {
 
             shapeRepository.addShape((BaseShape) shape);
 
-            System.out.println(shape.toString());
+            System.out.printf("%s\n", shape.toString());
         } catch (InvalidShapeException e) {
-            System.out.println(e.getMessage());
+            System.out.printf("%s\n", e.getMessage());
         }
     }
-
-    private String prompt;
-
-    private List<String> welcomeMessages;
-
-    private List<String> commandUsages;
-
-    private int searchThreads;
-
-    public int getSearchThreads() {
-        return searchThreads;
-    }
-
-    public void setSearchThreads(int searchThreads) {
-        this.searchThreads = searchThreads;
-    }
-
-    private String shapeFilesDir;
 
     private void printPrompt() {
         System.out.print(prompt);
@@ -147,13 +132,13 @@ public class AppConsole {
 
     private void printWelcome() {
         for (String msg : welcomeMessages) {
-            System.out.println(msg);
+            System.out.printf("%s\n", msg);
         }
     }
 
     private void printUsage() {
         for (String usage : commandUsages) {
-            System.out.println(usage);
+            System.out.printf("%s\n", usage);
         }
     }
 
@@ -188,4 +173,22 @@ public class AppConsole {
     public void setShapeFilesDir(String shapeFilesDir) {
         this.shapeFilesDir = shapeFilesDir;
     }
+
+    public int getSearchThreads() {
+        return searchThreads;
+    }
+
+    public void setSearchThreads(int searchThreads) {
+        this.searchThreads = searchThreads;
+    }
+
+    private String prompt;
+
+    private List<String> welcomeMessages;
+
+    private List<String> commandUsages;
+
+    private int searchThreads;
+
+    private String shapeFilesDir;
 }

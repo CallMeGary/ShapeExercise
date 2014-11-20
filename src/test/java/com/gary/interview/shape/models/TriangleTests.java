@@ -3,7 +3,7 @@ package com.gary.interview.shape.models;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidShapeException;
 
 public class TriangleTests {
@@ -49,32 +49,29 @@ public class TriangleTests {
     public void testConstructor_Accuracy() throws Exception {
         triangle = new Triangle("triangle 0 0 4.0 0 0 4.0");
 
-        Assert.assertEquals(0.0, triangle.getVerticeX1(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeY1(), Constants.DELTA);
-        Assert.assertEquals(4.0, triangle.getVerticeX2(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeY2(), Constants.DELTA);
-        Assert.assertEquals(0.0, triangle.getVerticeX3(), Constants.DELTA);
-        Assert.assertEquals(4.0, triangle.getVerticeY3(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), triangle.getV1());
+        Helper.assertPointEquals(new Point(4.0, 0.0), triangle.getV2());
+        Helper.assertPointEquals(new Point(0.0, 4.0), triangle.getV3());
     }
 
     @Test
     public void testGetArea() throws Exception {
         triangle = new Triangle("triangle 0 0 4.0 0 0 4.0");
 
-        Assert.assertEquals(8.0, triangle.getArea(), Constants.DELTA);
+        Helper.assertDoubleEquals(8.0, triangle.getArea());
     }
 
     @Test
     public void testIsInShape() throws Exception {
         triangle = new Triangle("triangle 0 0 4.0 0 0 4.0");
 
-        Assert.assertTrue(triangle.isInShape(0.0, 0.0));
-        Assert.assertTrue(triangle.isInShape(2.0, 2.0));
-        Assert.assertTrue(triangle.isInShape(4.0, 0.0));
+        Assert.assertTrue(triangle.isInShape(new Point(0.0, 0.0)));
+        Assert.assertTrue(triangle.isInShape(new Point(2.0, 2.0)));
+        Assert.assertTrue(triangle.isInShape(new Point(4.0, 0.0)));
 
-        Assert.assertFalse(triangle.isInShape(4.1, 0));
-        Assert.assertFalse(triangle.isInShape(0, 4.1));
-        Assert.assertFalse(triangle.isInShape(2.001, 2.01));
+        Assert.assertFalse(triangle.isInShape(new Point(4.1, 0)));
+        Assert.assertFalse(triangle.isInShape(new Point(0, 4.1)));
+        Assert.assertFalse(triangle.isInShape(new Point(2.001, 2.01)));
     }
 
 }

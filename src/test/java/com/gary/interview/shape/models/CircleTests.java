@@ -3,7 +3,7 @@ package com.gary.interview.shape.models;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.errors.InvalidShapeException;
 
 public class CircleTests {
@@ -49,26 +49,25 @@ public class CircleTests {
     public void testConstructor_Accuracy() throws Exception {
         circle = new Circle("circle -1.3 3.5 12.9");
 
-        Assert.assertEquals(-1.3, circle.getCenterX(), Constants.DELTA);
-        Assert.assertEquals(3.5, circle.getCenterY(), Constants.DELTA);
-        Assert.assertEquals(12.9, circle.getRadius(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(-1.3, 3.5), circle.getCenter());
+        Helper.assertDoubleEquals(12.9, circle.getRadius());
     }
 
     @Test
     public void testGetArea() throws Exception {
         circle = new Circle("circle -1.3 3.5 12.9");
 
-        Assert.assertEquals(Math.PI * 12.9 * 12.9, circle.getArea(), Constants.DELTA);
+        Helper.assertDoubleEquals(Math.PI * 12.9 * 12.9, circle.getArea());
     }
 
     @Test
     public void testIsInShape() throws Exception {
         circle = new Circle("circle 0 0 10");
 
-        Assert.assertTrue(circle.isInShape(5.0, 5.0));
-        Assert.assertTrue(circle.isInShape(7.0, 7.0));
-        Assert.assertFalse(circle.isInShape(7.1, 7.1));
-        Assert.assertFalse(circle.isInShape(8, 8));
+        Assert.assertTrue(circle.isInShape(new Point(5.0, 5.0)));
+        Assert.assertTrue(circle.isInShape(new Point(7.0, 7.0)));
+        Assert.assertFalse(circle.isInShape(new Point(7.1, 7.1)));
+        Assert.assertFalse(circle.isInShape(new Point(8, 8)));
     }
 
 }

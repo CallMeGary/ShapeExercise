@@ -1,7 +1,5 @@
 package com.gary.interview.shape.models;
 
-import java.text.NumberFormat;
-
 import com.gary.interview.shape.errors.InvalidShapeException;
 
 public class Donut extends BaseShape {
@@ -12,9 +10,7 @@ public class Donut extends BaseShape {
 
     private static final String shapeName = "donut";
 
-    private double centerX;
-
-    private double centerY;
+    private Point center;
 
     private double innerRadius;
 
@@ -28,8 +24,8 @@ public class Donut extends BaseShape {
         return java.lang.Math.PI * (outerRadius * outerRadius - innerRadius * innerRadius);
     }
 
-    public boolean isInShape(double posX, double posY) {
-        double distance = calculateDistance(posX, posY, centerX, centerY);
+    public boolean isInShape(Point point) {
+        double distance = calculateDistance(point, center);
         return !(distance < innerRadius || distance > outerRadius);
     }
 
@@ -45,8 +41,7 @@ public class Donut extends BaseShape {
 
     @Override
     void parseShapeValues(String[] data) throws NumberFormatException {
-        this.centerX = Double.parseDouble(data[1]);
-        this.centerY = Double.parseDouble(data[2]);
+        this.center = parsePoint(data[1], data[2]);
         this.innerRadius = Double.parseDouble(data[3]);
         this.outerRadius = Double.parseDouble(data[4]);
     }
@@ -67,18 +62,12 @@ public class Donut extends BaseShape {
 
     @Override
     public String toString() {
-        NumberFormat fmt = NumberFormat.getInstance();
-        return String.format("shape %d: %s with center at (%s, %s), innerRadius %s, outerRadius %s", getId(),
-                getShapeName(), fmt.format(centerX), fmt.format(centerY), fmt.format(innerRadius),
-                fmt.format(outerRadius));
+        return String.format("shape %d: %s with center at (%s, %s), innerRadius %s, outerRadius %s",
+                getId(), getShapeName(), format(center.x), format(center.y), format(innerRadius), format(outerRadius));
     }
 
-    public double getCenterX() {
-        return centerX;
-    }
-
-    public double getCenterY() {
-        return centerY;
+    public Point getCenter() {
+        return center;
     }
 
     public double getInnerRadius() {
@@ -88,4 +77,5 @@ public class Donut extends BaseShape {
     public double getOuterRadius() {
         return outerRadius;
     }
+
 }

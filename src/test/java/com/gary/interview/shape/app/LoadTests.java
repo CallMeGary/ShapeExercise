@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Shape;
 import com.gary.interview.shape.repositories.ShapeRepository;
 
@@ -37,25 +38,25 @@ public class LoadTests {
     public void loadTest() throws Exception {
         long timer0 = System.currentTimeMillis();
 
-        List<Shape> result1 = shapeSearcher.search(0.1, 0.0, 1);
+        List<Shape> result1 = shapeSearcher.search(new Point(0.1, 0.0), 1);
         long timer1 = System.currentTimeMillis();
 
-        List<Shape> result2 = shapeSearcher.search(0.1, 0.0, 2);
+        List<Shape> result2 = shapeSearcher.search(new Point(0.1, 0.0), 2);
         long timer2 = System.currentTimeMillis();
 
-        List<Shape> result3 = shapeSearcher.search(0.1, 0.0, 5);
+        List<Shape> result3 = shapeSearcher.search(new Point(0.1, 0.0), 5);
         long timer3 = System.currentTimeMillis();
 
-        List<Shape> result4 = shapeSearcher.search(0.1, 0.0, 10);
+        List<Shape> result4 = shapeSearcher.search(new Point(0.1, 0.0), 10);
         long timer4 = System.currentTimeMillis();
 
-        List<Shape> result5 = shapeSearcher.search(0.1, 0.0, 20);
+        List<Shape> result5 = shapeSearcher.search(new Point(0.1, 0.0), 20);
         long timer5 = System.currentTimeMillis();
 
-        List<Shape> result6 = shapeSearcher.search(0.1, 0.0, 50);
+        List<Shape> result6 = shapeSearcher.search(new Point(0.1, 0.0), 50);
         long timer6 = System.currentTimeMillis();
 
-        List<Shape> result7 = shapeSearcher.search(0.1, 0.0, 100);
+        List<Shape> result7 = shapeSearcher.search(new Point(0.1, 0.0), 100);
         long timer7 = System.currentTimeMillis();
 
         System.out.println("useThreads:   1,  elapsed time for searching: " + (timer1 - timer0));

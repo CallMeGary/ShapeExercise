@@ -25,6 +25,7 @@ public class ShapeFactory {
             if (rawData.startsWith(shapeName + " ")) {
                 try {
                     Class<Shape> shapeClass = validShapes.get(shapeName);
+
                     Constructor<Shape> shapeConstructor =
                             shapeClass.getDeclaredConstructor(new Class[] { String.class });
 
@@ -33,9 +34,9 @@ public class ShapeFactory {
                     if (e.getTargetException() instanceof InvalidShapeException) {
                         throw (InvalidShapeException) e.getTargetException();
                     }
-                    e.printStackTrace();
+                    throw new InvalidShapeException("Unknown error occurred when parsing shape", e);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new InvalidShapeException("Unknown error occurred when parsing shape", e);
                 }
             }
         }

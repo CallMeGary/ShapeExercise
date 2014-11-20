@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gary.interview.shape.Constants;
+import com.gary.interview.shape.Helper;
 import com.gary.interview.shape.models.Circle;
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Shape;
 import com.gary.interview.shape.repositories.ShapeRepository;
 
@@ -41,43 +42,43 @@ public class ShapeSearcherTests {
 
     @Test
     public void testSearch_NoResult() {
-        List<Shape> result = shapeSearcher.search(4.1, 4.0, 0);
+        List<Shape> result = shapeSearcher.search(new Point(4.1, 4.0), 0);
         Assert.assertNotNull(result);
         Assert.assertEquals(0, result.size());
     }
 
     @Test
     public void testSearch_HasResult() {
-        List<Shape> result = shapeSearcher.search(3.8, 3.8, 0);
-        
+        List<Shape> result = shapeSearcher.search(new Point(3.8, 3.8), 0);
+
         checkSearchResult(result);
     }
 
     @Test
     public void testSearch_3Thread() {
-        List<Shape> result = shapeSearcher.search(3.8, 3.8, 5);
-        
+        List<Shape> result = shapeSearcher.search(new Point(3.8, 3.8), 5);
+
         checkSearchResult(result);
     }
 
     @Test
     public void testSearch_5Thread() {
-        List<Shape> result = shapeSearcher.search(3.8, 3.8, 10);
-        
+        List<Shape> result = shapeSearcher.search(new Point(3.8, 3.8), 10);
+
         checkSearchResult(result);
     }
 
     @Test
     public void testSearch_10Thread() {
-        List<Shape> result = shapeSearcher.search(3.8, 3.8, 10);
-        
+        List<Shape> result = shapeSearcher.search(new Point(3.8, 3.8), 10);
+
         checkSearchResult(result);
     }
 
     @Test
     public void testSearch_100Thread() {
-        List<Shape> result = shapeSearcher.search(3.8, 3.8, 100);
-        
+        List<Shape> result = shapeSearcher.search(new Point(3.8, 3.8), 100);
+
         checkSearchResult(result);
     }
 
@@ -89,9 +90,8 @@ public class ShapeSearcherTests {
         Assert.assertTrue(shape instanceof Circle);
 
         Circle circle = (Circle) shape;
-        Assert.assertEquals(0.0, circle.getCenterX(), Constants.DELTA);
-        Assert.assertEquals(0.0, circle.getCenterY(), Constants.DELTA);
-        Assert.assertEquals(5.5, circle.getRadius(), Constants.DELTA);
+        Helper.assertPointEquals(new Point(0.0, 0.0), circle.getCenter());
+        Helper.assertDoubleEquals(5.5, circle.getRadius());
     }
 
     @After

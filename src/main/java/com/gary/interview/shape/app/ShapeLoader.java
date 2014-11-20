@@ -36,7 +36,7 @@ class ShapeLoader {
 
                 System.out.printf("%10d shape(s) were loaded from file: %s\n", loadedCnt, file.getAbsolutePath());
             } catch (IOException e) {
-                System.out.println("Error reading file, skipped: " + file.getAbsolutePath());
+                System.out.printf("Error reading file: '%s', skipped...\n", file.getAbsolutePath());
             }
         }
     }

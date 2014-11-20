@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gary.interview.shape.models.Point;
 import com.gary.interview.shape.models.Shape;
 import com.gary.interview.shape.repositories.ShapeRepository;
 
@@ -19,12 +20,10 @@ class ShapeSearcher {
     @Autowired
     private ShapeRepository shapeRepository;
 
-    private double posX;
-    private double posY;
+    private Point point;
 
-    List<Shape> search(double posX, double posY, int threads) {
-        this.posX = posX;
-        this.posY = posY;
+    List<Shape> search(Point point, int threads) {
+        this.point = point;
         threads = (threads > 0 ? threads : 1);
 
         int totalShapes = shapeRepository.getSize();
@@ -69,7 +68,7 @@ class ShapeSearcher {
 
             for (int i = from; i < to; i++) {
                 Shape shape = shapeRepository.get(i);
-                if (shape.isInShape(posX, posY)) {
+                if (shape.isInShape(point)) {
                     result.add(shape);
                 }
             }
